@@ -1,4 +1,7 @@
 # Thumbhash PHP
+
+This forks loosens the restriction on the size of the image from which to create the hash.  Valuable if you already have thumbnails larger than 100x100.
+
 [![Tests](https://github.com/SRWieZ/thumbhash/actions/workflows/test.yml/badge.svg)](https://github.com/SRWieZ/thumbhash/actions/workflows/tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/srwiez/thumbhash/v/stable)](https://packagist.org/packages/srwiez/thumbhash)
 
@@ -8,12 +11,14 @@ Thumbhash is a very compact representation of a placeholder for an image. Store 
 
 [Read more and test it here !](https://evanw.github.io/thumbhash/)
 
+
+
 ## Installation
 
 You can install Thumbhash PHP using Composer:
 
 ```bash
-composer require srwiez/thumbhash
+composer require srwiez/thumbhash:dev-tac
 ```
 
 ⚠️ I highly recommend to have Imagick extension installed on your computer. GD extension has only 7 bits of alpha channel resolution, and 127 is transparent, 0 opaque. While the library will still work, you may have different image between platforms. [See on stackoverflow](https://stackoverflow.com/questions/41079110/is-it-possible-to-retrieve-the-alpha-value-of-a-pixel-of-a-png-file-in-the-0-255)
@@ -31,7 +36,7 @@ $content = file_get_contents($url);
 
 list($width, $height, $pixels) = extract_size_and_pixels_with_imagick($content);
 
-$hash = Thumbhash::RGBAToHash($width, $height, $pixels);
+$hash = Thumbhash::RGBAToHash($width, $height, $pixels, 120, 120); // optionally set max width and height
 $key = Thumbhash::convertHashToString($hash); // You can store this in your database as a string
 $url = Thumbhash::toDataURL($hash);
 

@@ -13,11 +13,11 @@ class Thumbhash
      * @returns array The ThumbHash as an array.
      */
 
-    public static function RGBAToHash($w, $h, $rgba)
+    public static function RGBAToHash($w, $h, $rgba, int $maxWidth=100, int $maxHeight=100)
     {
         // Encoding an image larger than 100x100 is slow with no benefit
-        if ($w > 100 || $h > 100) {
-            throw new \Exception("{$w}x{$h} doesn't fit in 100x100");
+        if ($w > $maxWidth || $h > $maxHeight) {
+            throw new \Exception("{$w}x{$h} doesn't fit in $maxWidth x $maxHeight, use a smaller image or allow these numbers in this call");
         }
 
         // Determine the average color
